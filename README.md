@@ -27,8 +27,7 @@ To get started with the House Price Predictor project:
 
 1. Clone the repository to your local machine.
 2. Install the required dependencies using the provided `requirements.txt` file.
-3. Start the application using the appropriate command for your chosen framework (Flask/Django).
-4. Access the application through your web browser at `localhost:5000` or the corresponding port.
+3. Run the application using `python app.py`
 
 ## Contributing
 
