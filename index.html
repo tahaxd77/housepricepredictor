@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Analysis</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 100;
+            background-color: #939976;
+            padding: 50px;
+            border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1{
+            text-align: center;
+            font-size: 40px;
+        }
+        form{
+            width: 50%;
+            margin: 0 auto;
+            font-size: 30px;
+        }
+        label{
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        input[type="number"]{
+            width: 100%;
+            padding: 5px;
+            font-size: medium;
+            border: 1px solid #000000;
+            border-radius: 9px;
+            height: 40px;
+            font-size: 30px;
+        }
+        select{
+            width: 100%;
+            padding: 5px;
+            font-size: 30px;
+            height: 60px;
+            border: 1px solid #000000;
+            border-radius: 9px;
+            
+        }
+        option{
+            font-size: 30px;
+        }
+        .location-list{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .location-list div{
+            margin-right: 10px;
+        }
+        input[type="submit"]{
+            width: 100%;
+            padding: 10px;
+            font-size: 35px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            height: 60px;
+        }
+        input[type="submit"]:hover{
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Real Estate Price Predictor</h1>
+    <form action="" method="post">
+        <label for="purpose">Purpose:</label>
+        <select name="purpose" id="purpose">
+            <option value="">--Select Purpose--</option>
+            <option value="For sale">For sale</option>
+            <option value="For rent">For rent</option>
+        </select>
+        <label for="type">Property Type:</label>
+        <select name="property_type" id="property_type" type="text">
+            <option  value="">--Select Property Type--</option>
+            <option type="text" value="House">House</option>
+            <option value="Penthouse">Penthouse</option>
+            <option value="Flat">Flat</option>
+            <option value="Lower portion">Lower portion</option>
+            <option value="Upper portion">Upper portion</option>
+            <option value="Farm house">Farm House</option>
+            <option value="Room">Room</option>
+        </select>
+        <br>
+        <label for="area_size">Area Size:</label>
+        <input type="number" class="area_size" name="area_size">
+        <br>
+        <label for="area type">Area Type:</label>
+        <select name="area_type" id="area_type">
+            <option value="">--Select Area Type--</option>
+            <option value="Marla">Marla</option>
+            <option value="Kanal">Kanal</option>
+        </select>
+        <br>
+        <label for="rooms">Rooms:</label>
+        <input type="number" class="rooms" name="rooms">
+        <br>
+        <label for="city">City:</label>
+        <select name="city" id="city">
+            <option value="">--Select City--</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Karachi">Karachi</option>
+            <option value="Islamabad">Islamabad</option>
+            <option value="Rawalpindi">Rawalpindi</option>
+            <option value="Faisalabad">Faisalabad</option>
+        </select>
+        <label for="location">Location:</label>
+        <select id="locationsContainer" class="location-list" name="location">
+            <option value="">--Select Location--</option>
+        </select>
+        <br>
+        <input type="submit" value="Submit">
+        <br>
+    </form>    
+</body>
+<script>
+    document.getElementById('city').addEventListener('change', function(){
+        const city = this.value;
+        if(city){
+            loadLocations(city);
+        }
+        else{
+            document.getElementById('locationsContainer').innerHTML = '';
+        }
+    });
+
+    function loadLocations(city){
+       try {
+        fetch(`/static/${city}.json`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data fetched");
+            console.log(data);
+            displayLocations(data);
+        });
+       } catch (error) {
+        console.log("Error: ", error);
+       }
+    }
+    function displayLocations(locations){
+        console.log('Displaying')
+        const locations_arr = locations.locations;
+        const container = document.getElementById('locationsContainer');
+        //console.log(container);
+        container.innerHTML = '';
+        console.log(typeof locations);
+        locations_arr.forEach((location) => {
+            const locationElement = document.createElement('option');
+            locationElement.value = location;
+            locationElement.innerHTML = location;
+            container.appendChild(locationElement);
+        });
+    }
+</script>
+</html>
