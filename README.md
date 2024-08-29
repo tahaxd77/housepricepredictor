@@ -34,6 +34,3 @@ To get started with the House Price Predictor project:
 
 Contributions are welcome! If you'd like to contribute to the project, please fork the repository and submit a pull request. You can also raise issues or suggest features in the repository.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
